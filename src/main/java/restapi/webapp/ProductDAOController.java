@@ -98,6 +98,12 @@ public class ProductDAOController {
                 .getAllProduct()).withSelfRel());
     }
 
+    @GetMapping("/products/byname/{name}")
+    ResponseEntity<?> findProductsByName(@PathVariable String name){
+        List<EntityModel<Product>> products = productRepo.getProductsByProductName(name).stream().map(productAssembler::toModel).collect(Collectors.toList());
+        return ResponseEntity.ok().body(CollectionModel.of(products));
+    }
+
     @GetMapping("/products/optionals")
     @ResponseBody
     String getOptionalMessage(@RequestParam Optional<String> someParam){
