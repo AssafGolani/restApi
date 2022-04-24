@@ -1,4 +1,4 @@
-package restapi.webapp;
+package archive;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

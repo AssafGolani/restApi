@@ -1,4 +1,4 @@
-package restapi.webapp;
+package archive;
 
 import lombok.Data;
 

@@ -1,10 +1,14 @@
 package restapi.webapp;
 
+import archive.Product;
+import archive.ProductRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
 
 @Configuration
 public class SeedDB {
@@ -16,17 +20,16 @@ public class SeedDB {
      */
 
     @Bean
-    CommandLineRunner seedDatabase(ProductRepo myProducts){
+    CommandLineRunner seedDatabase(ProfileRepository profileRepo, PostRepository postRepo){
         return args -> {
-            logger.info("logging " +
-                    myProducts.save
-                    (new Product("AirPods v3 2021", "Headphones", 250.0)));
-            logger.info("logging " +
-                    myProducts.save
-                            (new Product("Iphone 13", "Cellphones", 1000.0)));
-            logger.info("logging " +
-                    myProducts.save
-                            (new Product("MacBook Pro 13 2021", "Laptops", 1500.0)));
+            UserProfile profile1 =  profileRepo.save(new UserProfile("First Profile"));
+            UserProfile profile2 =  profileRepo.save(new UserProfile("First Profile"));
+
+            Post post1 = postRepo.save(new Post("Title 1", "This is our first post", profile1));
+            Post post2 = postRepo.save(new Post("Title 2", "This is our second post", profile1));
+            profile1.setPosts(Arrays.asList(post1, post2));
+            profileRepo.save(profile1);
+
         };
     }
 }
