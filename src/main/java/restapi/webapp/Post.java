@@ -24,8 +24,8 @@ public class Post {
     private LocalDateTime creationTime;
 
     // @JsonIgnore - marshall JSON field exposure to user
-    @JsonIgnore @OneToOne private UserProfile creator;
-
+    @OneToOne private UserProfile creator;
+    @JsonIgnore
     public Post(String title, String content, UserProfile profile){
         this.creationTime = LocalDateTime.now();
         this.title = title;
